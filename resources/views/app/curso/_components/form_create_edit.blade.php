@@ -1,9 +1,9 @@
 @if(isset($curso->id))
-    <form method="post" action="{{ route('curso.update', ['curso' => $curso->id]) }}">
+    <form method="post" action="{{ route('curso.update', ['curso' => $curso->id]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 @else
-    <form method="post" action="{{ route('curso.store') }}">
+    <form method="post" action="{{ route('curso.store') }}" enctype="multipart/form-data">
         @csrf
 @endif
 

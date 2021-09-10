@@ -14,7 +14,9 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        $alunos = Aluno::paginate(10);
+        // retorna todos os alunos
+        $alunos = Aluno::all();
+        // $alunos = Aluno::paginate(10);
         return view('app.aluno.index', ['alunos' => $alunos]);
 
     }
@@ -38,30 +40,9 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-        $regras = [
-            'nome_aluno' => 'required|min:4|max:40',
-            'nome_aluno' => 'required',
-            'endereco' => 'required',
-            'email' => 'required|email|unique:alunos',
-            'cpf' => 'required|numeric',
-            'empresa' => 'required',
-            'telefone' => 'required|numeric',
-            'celular' => 'required|numeric',
-            'senha' => 'required',
-            'confirmar_senha' => 'required',
 
-        ];
-
-        $feedback = [
-            'required' => 'Este campo é obrigatório',
-            'nome_aluno.min' => 'O campo deve ter no mínimo 4 caracteres',
-            'nome_aluno.max' => 'O campo deve ter no máximo 40 caracteres',
-            'email' => 'O e-mail informado não é valido',
-            'email.unique' => 'O e-mail informado já está cadastrado',
-            'numeric' => 'O valor deve ser numérico'
-        ];
-
-        $request->validate($regras, $feedback);
+        // validar campos
+        $request->validate($this->regras(), $this->feedback());
 
         $aluno = new Aluno();
         $aluno->nome_aluno = $request->get('nome_aluno');
@@ -109,29 +90,9 @@ class AlunoController extends Controller
      */
     public function update(Request $request, Aluno $aluno)
     {
-        $regras = [
-            'nome_aluno' => 'required|min:4|max:40',
-            'nome_aluno' => 'required',
-            'endereco' => 'required',
-            'email' => 'required|email',
-            'cpf' => 'required|numeric',
-            'empresa' => 'required',
-            'telefone' => 'required|numeric',
-            'celular' => 'required|numeric',
-            'senha' => 'required',
-            'confirmar_senha' => 'required',
 
-        ];
-
-        $feedback = [
-            'required' => 'Este campo é obrigatório',
-            'nome_aluno.min' => 'O campo deve ter no mínimo 4 caracteres',
-            'nome_aluno.max' => 'O campo deve ter no máximo 40 caracteres',
-            'email' => 'O e-mail informado não é valido',
-            'numeric' => 'O valor deve ser numérico'
-        ];
-
-        $request->validate($regras, $feedback);
+        // validar campos
+        $request->validate($this->regras(), $this->feedback());
 
         $aluno->nome_aluno = $request->get('nome_aluno');
         $aluno->endereco = $request->get('endereco');
@@ -155,8 +116,37 @@ class AlunoController extends Controller
      */
     public function destroy(Aluno $aluno)
     {
+        // deletar registro
         $aluno->delete();
 
         return redirect()->route('aluno.index');
+    }
+
+    public function regras (){
+
+        return [
+            'nome_aluno' => 'required|min:4|max:40',
+            'nome_aluno' => 'required',
+            'endereco' => 'required',
+            'email' => 'required|email',
+            'cpf' => 'required|numeric',
+            'empresa' => 'required',
+            'telefone' => 'required|numeric',
+            'celular' => 'required|numeric',
+            'senha' => 'required',
+            'confirmar_senha' => 'required',
+
+        ];
+    }
+
+    public function feedback (){
+
+        return [
+            'required' => 'Este campo é obrigatório',
+            'nome_aluno.min' => 'O campo deve ter no mínimo 4 caracteres',
+            'nome_aluno.max' => 'O campo deve ter no máximo 40 caracteres',
+            'email' => 'O e-mail informado não é valido',
+            'numeric' => 'O valor deve ser numérico'
+        ];
     }
 }

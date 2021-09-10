@@ -138,7 +138,7 @@ class AreaAlunoController extends Controller
             ->join('alunos', 'inscricao.aluno_id', '=', 'alunos.id')
             ->join('cursos', 'inscricao.curso_id', '=', 'cursos.id')
             ->where('inscricao.aluno_id', '=', $aluno->id)
-            ->select('cursos.nome_curso', 'cursos.descricao', 'cursos.data_inicio_curso', 'cursos.created_at', 'cursos.valor', 'cursos.local', 'cursos.hora_inicio')
+            ->select('cursos.nome_curso', 'cursos.descricao', 'cursos.data_inicio_curso', 'cursos.created_at', 'cursos.valor', 'cursos.local', 'cursos.hora_inicio', 'cursos.arquivo_material')
             ->get();
 
         // mostra apenas os cursos ainda não inscritos

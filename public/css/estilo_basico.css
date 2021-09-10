@@ -107,24 +107,24 @@ html, body {
     user-select: none;
   }
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
     .bd-placeholder-img-lg {
-      font-size: 3.5rem;
+        font-size: 3.5rem;
     }
-  }
+}
 
-  a:link {
-      text-decoration: none;
-  }
+a:link {
+    text-decoration: none;
+}
 
-  .dropdown-menu {
-    position:unset;
-  }
+.dropdown-menu {
+position:unset;
+}
 
-  h4 {
-      text-align: left;
-  }
+h4 {
+    text-align: left;
+}
 
-  /* #area_adm {
-      float: right;
-  } */
+.table {
+    text-align: left;
+}

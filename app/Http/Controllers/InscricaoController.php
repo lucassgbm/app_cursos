@@ -63,19 +63,8 @@ class InscricaoController extends Controller
     public function store(Request $request)
     {
 
-        $regras = [
-            'nome_aluno' => 'required',
-            'categoria' => 'required',
-            'curso' => 'required',
-            'status' => 'required'
-        ];
-
-        $feedback = [
-            'required' => 'O campo :attribute deve ser preenchido',
-         
-        ];
-
-        $request->validate($regras, $feedback);
+        // validações
+        $request->validate($this->regras(), $this->feedback());
 
         $aluno_id = DB::table('alunos')
             ->where('alunos.nome_aluno', '=', $request->get('nome_aluno'))
@@ -144,22 +133,12 @@ class InscricaoController extends Controller
      */
     public function update(Request $request, Inscricao $inscricao)
     {
-        $regras = [
-            'nome_aluno' => 'required',
-            'categoria' => 'required',
-            'curso' => 'required'
-        ];
-
-        $feedback = [
-            'required' => 'O campo :attribute deve ser preenchido',
-         
-        ];
-
-        $request->validate($regras, $feedback);
+        // validações
+        $request->validate($this->regras(), $this->feedback());
 
         $inscricao->aluno_id = $request->get('aluno_id');
         $inscricao->categoria_id = $request->get('categoria');
-        $inscricao->status_id = 1; // 1 = pendente
+        $inscricao->status_id = $request->get('status');; 
         $inscricao->curso_id = $request->get('curso');
         $inscricao->update();
 
@@ -174,6 +153,7 @@ class InscricaoController extends Controller
      */
     public function destroy(Inscricao $inscricao)
     {
+        // deletar inscrição
         $inscricao->delete();
 
         return redirect()->route('inscricao.index');
@@ -181,6 +161,7 @@ class InscricaoController extends Controller
 
     public function exportar($extensao){
        
+        //exportar para xls ou pdf
         $nome_arquivo = 'inscritos';
         if($extensao == 'xls'){
             $nome_arquivo .= '.xls';
@@ -189,5 +170,21 @@ class InscricaoController extends Controller
         }
 
         return Excel::download(new InscricoesExport, $nome_arquivo);
+    }
+
+    public function regras(){
+        return [
+            'nome_aluno' => 'required',
+            'categoria' => 'required',
+            'curso' => 'required',
+            'status' => 'required'
+        ];
+    }
+
+    public function feedback(){
+        return [
+            'required' => 'O campo :attribute deve ser preenchido',
+         
+        ];
     }
 }

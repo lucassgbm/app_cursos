@@ -14,11 +14,10 @@ class CursoController extends Controller
      */
     public function index()
     {
-        // return 'curso';
 
-        $cursos = Cursos::paginate(10);
+        // retorna todos os cursos
+        $cursos = Cursos::all();
 
-        // dd($cursos);
         return view('app.curso.index', ['cursos' => $cursos]);
     }
 
@@ -42,33 +41,11 @@ class CursoController extends Controller
     public function store(Request $request)
     {
 
-        $regras = [
-            'nome_curso' => 'required|min:4|max:40',
-            'nome_curso' => 'required',
-            'descricao' => 'required',
-            'local' => 'required',
-            'valor' => 'required',
-            'data_inicio_curso' => 'required',
-            'hora' => 'required',
-            'data_inicio_inscricoes' => 'required',
-            'data_termino_inscricoes' => 'required',
-            'qtd_max_inscritos' => 'required',
-            'arquivo_material' => 'required',
+        // validação de campos
+        $request->validate($this->regras(), $this->feedback());
 
-        ];
-
-        $feedback = [
-            'required' => 'Este campo é obrigatório',
-            'nome_curso.min' => 'O campo deve ter no mínimo 4 caracteres',
-            'nome_curso.max' => 'O campo deve ter no máximo 40 caracteres'
-        ];
-
-        $request->validate($regras, $feedback);
-
-
-        // upload do arquivo aqui
-        // $arquivo = $request->file('arquivo_material');
-        // $arquivo_url = $arquivo->store('documentos/curso', 'public');
+        // upload do arquivo:
+        $arquivo_urn = $this->upload_arquivo($request);
 
         $curso = new Cursos();
         $curso->nome_curso = $request->get('nome_curso');
@@ -80,8 +57,7 @@ class CursoController extends Controller
         $curso->data_inicio_inscricoes = $request->get('data_inicio_inscricoes');
         $curso->data_termino_inscricoes = $request->get('data_termino_inscricoes');
         $curso->qtd_max_inscritos = $request->get('qtd_max_inscritos');
-        $curso->arquivo_material = $request->get('arquivo_material');
-        // $curso->arquivo_material = $arquivo_url;
+        $curso->arquivo_material = $arquivo_urn;
         $curso->save();
 
         
@@ -108,7 +84,6 @@ class CursoController extends Controller
     public function edit(Cursos $curso)
     {
         
-        // dd($curso);
         return view('app.curso.edit', ['curso' => $curso]);
  
     }
@@ -123,29 +98,11 @@ class CursoController extends Controller
     public function update(Request $request, Cursos $curso)
     {
 
-        $regras = [
-            'nome_curso' => 'required|min:4|max:40',
-            'nome_curso' => 'required',
-            'descricao' => 'required',
-            'local' => 'required',
-            'valor' => 'required',
-            'data_inicio_curso' => 'required',
-            'hora' => 'required',
-            'data_inicio_inscricoes' => 'required',
-            'data_termino_inscricoes' => 'required',
-            'qtd_max_inscritos' => 'required',
-            'arquivo_material' => 'required',
+        // validação de campos
+        $request->validate($this->regras(), $this->feedback());
 
-        ];
-
-        $feedback = [
-            'required' => 'Este campo é obrigatório',
-            'nome_curso.min' => 'O campo deve ter no mínimo 4 caracteres',
-            'nome_curso.max' => 'O campo deve ter no máximo 40 caracteres'
-        ];
-
-        $request->validate($regras, $feedback);
-
+        // upload do arquivo:
+        $arquivo_urn = $this->upload_arquivo($request);
 
         $curso->nome_curso = $request->get('nome_curso');
         $curso->descricao = $request->get('descricao');
@@ -156,7 +113,7 @@ class CursoController extends Controller
         $curso->data_inicio_inscricoes = $request->get('data_inicio_inscricoes');
         $curso->data_termino_inscricoes = $request->get('data_termino_inscricoes');
         $curso->qtd_max_inscritos = $request->get('qtd_max_inscritos');
-        $curso->arquivo_material = $request->get('arquivo_material');
+        $curso->arquivo_material = $arquivo_urn;
         $curso->update();
 
         return redirect()->route('curso.show', ['curso' => $curso->id]);
@@ -172,9 +129,48 @@ class CursoController extends Controller
      */
     public function destroy(Cursos $curso)
     {
+        // deletar o curso
         $curso->delete();
 
         return redirect()->route('curso.index');
+
+    }
+
+    public function regras (){
+
+        return [
+            'nome_curso' => 'required|min:4|max:40',
+            'nome_curso' => 'required',
+            'descricao' => 'required',
+            'local' => 'required',
+            'valor' => 'required',
+            'data_inicio_curso' => 'required',
+            'hora' => 'required',
+            'data_inicio_inscricoes' => 'required',
+            'data_termino_inscricoes' => 'required',
+            'qtd_max_inscritos' => 'required',
+            'arquivo_material' => 'required|file|mimes:pdf',
+
+        ];
+    }
+
+    public function feedback (){
+
+        return [
+            'required' => 'Este campo é obrigatório',
+            'nome_curso.min' => 'O campo deve ter no mínimo 4 caracteres',
+            'nome_curso.max' => 'O campo deve ter no máximo 40 caracteres',
+            'arquivo_material.mimes' => 'O arquivo deve ser .pdf'
+        ];
+
+    }
+
+    public function upload_arquivo($request){
+
+        $host = request()->getHttpHost();
+        $arquivo = $request->file('arquivo_material');
+        // salva o arquivo na pasta storage/arquivos/curso
+        return $host.'/storage/'.$arquivo->store('arquivos/curso', 'public');
 
     }
 }
