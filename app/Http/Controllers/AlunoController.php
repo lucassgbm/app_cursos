@@ -113,7 +113,7 @@ class AlunoController extends Controller
             'nome_aluno' => 'required|min:4|max:40',
             'nome_aluno' => 'required',
             'endereco' => 'required',
-            'email' => 'required|email|unique:alunos',
+            'email' => 'required|email',
             'cpf' => 'required|numeric',
             'empresa' => 'required',
             'telefone' => 'required|numeric',

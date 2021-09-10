@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateAlunosTable extends Migration
 {
@@ -25,6 +26,19 @@ class CreateAlunosTable extends Migration
             $table->bigInteger('telefone');
             $table->bigInteger('celular');
         });
+
+        DB::table('alunos')->insert([
+            [
+                'nome_aluno' => 'Lucas Belfort', 
+                'email' => 'lucas@teste.com',
+                'senha' => '1234',
+                'cpf' => '99999999999',
+                'empresa' => 'Coca Cola',
+                'endereco' => 'QD 01 BLOCO O LOTE 2 - Samambaia Sul',
+                'telefone' => '33333333',
+                'celular' => '999999999'
+            ],
+        ]);
     }
 
     /**

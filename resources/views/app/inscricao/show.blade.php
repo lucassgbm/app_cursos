@@ -11,14 +11,26 @@
 
         <div class="informacao-pagina">
             <div style="width: 80%; margin-left: auto; margin-right: auto">
-                
+                @isset($msg)
+                    <section class="py-5 text-center container">
+
+                            @if ($msg == 'error')
+                                <div class="alert alert-info" role="alert">
+                                    Houve um erro ao tentar gerar o seu boleto. Por favor, entre em contato com o suporte.
+                                </div>
+                            @else
+                                <div class="alert alert-info" role="alert">
+                                    Segue abaixo o boleto. A sua inscrição será efetivada com o pagamento.
+                                </div>
+                                <iframe src="{{ $msg }}" width="100%" height="300" style="border:none;"></iframe>
+                            @endif
+                    </section>
+                @endisset
+
                 <div class="menu">
                     <ul>
-                        <li><a href="{{ route('inscricao.index') }}"><button type="button" class="btn btn-primary">Voltar</button></a></li>
-                        <li>
-                        
-                        <a href="{{ route('inscricao.edit', ['inscricao' => $inscricao->id ]) }}"><button type="button" class="btn btn-primary">Editar</button></a>                        
-                        </li>
+                        <li><a href="{{ route('inscricao.index') }}"><button type="button" class="btn btn-secondary">Voltar</button></a></li>
+                        <li><a href="{{ route('inscricao.edit', ['inscricao' => $inscricao->id ]) }}"><button type="button" class="btn btn-secondary">Editar</button></a></li>
                             
                     </ul>
                 </div>

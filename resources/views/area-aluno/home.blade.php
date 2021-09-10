@@ -70,7 +70,8 @@
                         <h4>{{ $inscricao->nome_curso }}</h4>
                         <p class="card-text">{{ $inscricao->descricao }}</p>
                         <div class="d-flex justify-content-between align-items-center">
-                        Início: {{ date('d/m/Y', strtotime($inscricao->data_inicio_curso)) }}<br>
+                        Local: {{ $inscricao->local }}<br>
+                        Início: {{ date('d/m/Y', strtotime($inscricao->data_inicio_curso)).' '.$inscricao->hora_inicio }}<br>
                         Data da inscrição: {{ date('d/m/Y', strtotime($inscricao->created_at)) }}<br>
                         
                         <small class="text-muted">Valor: R$ {{ $inscricao->valor }}</small>

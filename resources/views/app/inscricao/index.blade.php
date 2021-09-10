@@ -18,11 +18,10 @@
             <div class="menu">
             <ul>
             
-                <li>
+                {{-- <li>
                     <form class="row g-3">
                         
                         <div class="col-auto">
-                            <label class="visually-hidden">Password</label>
                             <input type="text" class="form-control" id="inputPassword2" placeholder="pesquisar">
                         </div>
                         <div class="col-auto">
@@ -30,7 +29,7 @@
                         </div>
 
                     </form>
-                </li>
+                </li> --}}
                 <li><a href="{{ route('inscricao.create') }}"><button type="button" class="btn btn-dark">Nova inscrição</button></a></li>
                   
             </ul>

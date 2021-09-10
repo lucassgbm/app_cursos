@@ -65,9 +65,9 @@
                 <div class="menu">
                     <ul>
                     
-                        <li><a href="{{ route('inscricao.create') }}"><button type="button" class="btn btn-secondary">Exportar para CSV</button></a></li>
+                        {{-- <li><a href="{{ route('inscricao.create') }}"><button type="button" class="btn btn-secondary">Exportar para CSV</button></a></li>
                         <li><a href="{{ route('inscricao.create') }}"><button type="button" class="btn btn-secondary">Exportar para PDF</button></a></li>
-                        
+                         --}}
                     </ul>
                 </div>
             </div>

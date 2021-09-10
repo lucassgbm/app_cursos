@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aluno;
 use App\Models\Inscricao;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Cursos;
+use App\Models\PagSeguro;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -21,7 +22,6 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        // return 'inscrições';
 
         $inscricoes = DB::table('inscricao')
             ->join('alunos', 'inscricao.aluno_id', '=', 'alunos.id')
@@ -64,7 +64,8 @@ class InscricaoController extends Controller
         $regras = [
             'nome_aluno' => 'required',
             'categoria' => 'required',
-            'curso' => 'required'
+            'curso' => 'required',
+            'status' => 'required'
         ];
 
         $feedback = [
@@ -74,16 +75,31 @@ class InscricaoController extends Controller
 
         $request->validate($regras, $feedback);
 
-        // dd($request->all());
-
+        $aluno_id = DB::table('alunos')
+            ->where('alunos.nome_aluno', '=', $request->get('nome_aluno'))
+            ->select('alunos.id')
+            ->limit(1)
+            ->get()
+            ->toArray();
+            
         $inscricao = new Inscricao();
-        $inscricao->aluno_id = $request->get('aluno_id');
+        $inscricao->aluno_id = $aluno_id['0']->id;
         $inscricao->categoria_id = $request->get('categoria');
-        $inscricao->status_id = 1; // 1 = pendente
+        $inscricao->status_id = $request->get('status');
         $inscricao->curso_id = $request->get('curso');
         $inscricao->save();
 
-        $msg = 'Foi enviado um boleto para o e-mail: '.$inscricao->aluno->email.'. A inscrição será efetivada com o pagamento.';
+        // gerar boleto pelo pagseguro
+        $boleto = new PagSeguro();
+        if($boleto->gerarBoleto($inscricao) == 'error'){
+
+            $msg = 'Houve um erro ao gerar o seu boleto. Entre em contato com o suporte';
+            
+        }else {
+
+            $msg = $boleto->gerarBoleto($inscricao);
+        }
+
 
         return view('app.inscricao.show', ['inscricao' => $inscricao, 'msg' => $msg]);
 
@@ -97,21 +113,8 @@ class InscricaoController extends Controller
      */
     public function show(Inscricao $inscricao)
     {
-        // $inscricao = DB::table('inscricao')
-        // ->join('alunos', 'inscricao.aluno_id', '=', 'alunos.id')
-        // ->join('cursos', 'inscricao.curso_id', '=', 'cursos.id')
-        // ->join('categoria', 'inscricao.categoria_id', '=', 'categoria.id')
-        // ->join('status', 'inscricao.status_id', '=', 'status.id')
-        // ->select('inscricao.id', 'nome_aluno', 'nome_curso', 'inscricao.created_at', 'nome_categoria', 'cpf', 'email', 'nome_status')
-        // ->where('inscricao.id', $inscricao->id)
-        // ->get();
 
-        // $inscricao = Inscricao::with(['curso.nome_curso', 'aluno', 'categoria', 'status'])->get();
-
-
-        // dd($inscricao);
-        
-            return view('app.inscricao.show', ['inscricao' => $inscricao]);
+        return view('app.inscricao.show', ['inscricao' => $inscricao]);
 
     }
 
@@ -126,6 +129,7 @@ class InscricaoController extends Controller
         $categorias = Categoria::all();
         $status = Status::all();
         $cursos = Cursos::all();
+        // dd($inscricao);
         return view('app.inscricao.edit', ['inscricao' => $inscricao, 'categorias' => $categorias, 'status' => $status, 'cursos' => $cursos]);
     }
 

@@ -33,20 +33,21 @@
                 @endif
             </tr>
             <tr>
-                <td><label class="form-label">Valor do curso</label></td>
-                <td><input type="valor" class="form-control" id="valor" name="valor" placeholder="valor do curso" value="{{ $curso->valor ?? old('valor') }}">
-                {{-- {{ $errors->has('valor') ? $errors->first('valor') : '' }}</td> --}}
-                @if ($errors->has('valor'))
+                <td><label class="form-label">Local</label></td>
+                <td><input type="text" class="form-control" id="local" name="local" value="{{ $curso->local ?? old('local') }}">
+                {{-- {{ $errors->has('local') ? $errors->first('local') : '' }}</td> --}}
+                @if ($errors->has('local'))
             
                     <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        {{ $errors->first('valor') }}
+                        {{ $errors->first('local') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
             </tr>
+
             <tr>
                 <td><label class="form-label">Data de início do curso</label></td>
-                <td><input type="date" class="form-control" id="data_inicio_curso" name="data_inicio_curso" placeholder="dd/mm/aaaa" value="{{ $curso->data_inicio_curso_inscricoes ?? old('data_inicio_curso_inscricoes') }}">
+                <td><input type="date" class="form-control" id="data_inicio_curso" name="data_inicio_curso" placeholder="dd/mm/aaaa" value="{{ $curso->data_inicio_curso ?? old('data_inicio_curso') }}">
                 {{-- {{ $errors->has('data_inicio_curso') ? $errors->first('data_inicio_curso') : '' }}</td> --}}
                 @if ($errors->has('data_inicio_curso'))
             
@@ -58,8 +59,32 @@
                 
             </tr>
             <tr>
+                <td><label class="form-label">Hora</label></td>
+                <td><input type="time" class="form-control" id="hora" name="hora" value="{{ $curso->hora_inicio ?? old('hora') }}">
+                {{-- {{ $errors->has('hora') ? $errors->first('hora') : '' }}</td> --}}
+                @if ($errors->has('hora'))
+            
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ $errors->first('hora') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </tr>
+            <tr>
+                <td><label class="form-label">Valor do curso</label></td>
+                <td><input type="text" class="form-control" id="valor" name="valor" value="{{ $curso->valor ?? old('valor') }}">
+                {{-- {{ $errors->has('valor') ? $errors->first('valor') : '' }}</td> --}}
+                @if ($errors->has('valor'))
+            
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ $errors->first('valor') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </tr>
+            <tr>
                 <td><label class="form-label">Data de início das inscrições</label></td>
-                <td><input type="date" class="form-control" id="data_inicio_inscricoes" name="data_inicio_inscricoes" placeholder="dd/mm/aaaa" value="{{ $curso->data_inicio_inscricoes_inscricoes ?? old('data_inicio_inscricoes_inscricoes') }}">
+                <td><input type="date" class="form-control" id="data_inicio_inscricoes" name="data_inicio_inscricoes" placeholder="dd/mm/aaaa" value="{{ $curso->data_inicio_inscricoes ?? old('data_inicio_inscricoes') }}">
                 {{-- {{ $errors->has('data_inicio_inscricoes') ? $errors->first('data_inicio_inscricoes') : '' }}</td> --}}
                 @if ($errors->has('data_inicio_inscricoes'))
             
@@ -72,7 +97,7 @@
             </tr>
             <tr>
                 <td><label class="form-label">Data de término das inscrições</label></td>
-                <td><input type="date" class="form-control" id="data_termino_inscricoes" name="data_termino_inscricoes" placeholder="dd/mm/aaaa" value="{{ $curso->data_termino_inscricoes_inscricoes ?? old('data_termino_inscricoes_inscricoes') }}">
+                <td><input type="date" class="form-control" id="data_termino_inscricoes" name="data_termino_inscricoes" placeholder="dd/mm/aaaa" value="{{ $curso->data_termino_inscricoes ?? old('data_termino_inscricoes') }}">
                 {{-- {{ $errors->has('data_termino_inscricoes') ? $errors->first('data_termino_inscricoes') : '' }}</td> --}}
                 @if ($errors->has('data_termino_inscricoes'))
             
@@ -85,7 +110,7 @@
             </tr>
             <tr>
                 <td><label class="form-label">Quantidade máxima de inscritos</label></td>
-                <td><input type="qtd_max_inscritos" class="form-control" id="qtd_max_inscritos" name="qtd_max_inscritos" value="{{ $curso->qtd_max_inscritos ?? old('qtd_max_inscritos') }}">
+                <td><input type="text" class="form-control" id="qtd_max_inscritos" name="qtd_max_inscritos" value="{{ $curso->qtd_max_inscritos ?? old('qtd_max_inscritos') }}">
                 {{-- {{ $errors->has('qtd_max_inscritos') ? $errors->first('qtd_max_inscritos') : '' }}</td> --}}
                 @if ($errors->has('qtd_max_inscritos'))
             

@@ -46,8 +46,10 @@ class CursoController extends Controller
             'nome_curso' => 'required|min:4|max:40',
             'nome_curso' => 'required',
             'descricao' => 'required',
+            'local' => 'required',
             'valor' => 'required',
             'data_inicio_curso' => 'required',
+            'hora' => 'required',
             'data_inicio_inscricoes' => 'required',
             'data_termino_inscricoes' => 'required',
             'qtd_max_inscritos' => 'required',
@@ -63,21 +65,26 @@ class CursoController extends Controller
 
         $request->validate($regras, $feedback);
 
-        // dd($request->input('nome_curso'));
-        // dd($request->all());
 
+        // upload do arquivo aqui
+        // $arquivo = $request->file('arquivo_material');
+        // $arquivo_url = $arquivo->store('documentos/curso', 'public');
 
         $curso = new Cursos();
         $curso->nome_curso = $request->get('nome_curso');
         $curso->descricao = $request->get('descricao');
-        $curso->valor = $request->get('valor');
+        $curso->local = $request->get('local');
         $curso->data_inicio_curso = $request->get('data_inicio_curso');
+        $curso->hora_inicio = $request->get('hora');
+        $curso->valor = $request->get('valor');
         $curso->data_inicio_inscricoes = $request->get('data_inicio_inscricoes');
         $curso->data_termino_inscricoes = $request->get('data_termino_inscricoes');
         $curso->qtd_max_inscritos = $request->get('qtd_max_inscritos');
         $curso->arquivo_material = $request->get('arquivo_material');
+        // $curso->arquivo_material = $arquivo_url;
         $curso->save();
 
+        
         return redirect()->route('curso.index');
     }
 
@@ -120,8 +127,10 @@ class CursoController extends Controller
             'nome_curso' => 'required|min:4|max:40',
             'nome_curso' => 'required',
             'descricao' => 'required',
+            'local' => 'required',
             'valor' => 'required',
             'data_inicio_curso' => 'required',
+            'hora' => 'required',
             'data_inicio_inscricoes' => 'required',
             'data_termino_inscricoes' => 'required',
             'qtd_max_inscritos' => 'required',
@@ -140,8 +149,10 @@ class CursoController extends Controller
 
         $curso->nome_curso = $request->get('nome_curso');
         $curso->descricao = $request->get('descricao');
-        $curso->valor = $request->get('valor');
+        $curso->local = $request->get('local');
         $curso->data_inicio_curso = $request->get('data_inicio_curso');
+        $curso->hora_inicio = $request->get('hora');
+        $curso->valor = $request->get('valor');
         $curso->data_inicio_inscricoes = $request->get('data_inicio_inscricoes');
         $curso->data_termino_inscricoes = $request->get('data_termino_inscricoes');
         $curso->qtd_max_inscritos = $request->get('qtd_max_inscritos');

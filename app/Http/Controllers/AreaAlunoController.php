@@ -7,6 +7,8 @@ use \App\Models\Aluno;
 use \App\Models\Cursos;
 use \App\Models\Inscricao;
 use Illuminate\Support\Facades\DB;
+use App\Models\PagSeguro;
+
 
 use function PHPUnit\Framework\isNull;
 
@@ -136,7 +138,7 @@ class AreaAlunoController extends Controller
             ->join('alunos', 'inscricao.aluno_id', '=', 'alunos.id')
             ->join('cursos', 'inscricao.curso_id', '=', 'cursos.id')
             ->where('inscricao.aluno_id', '=', $aluno->id)
-            ->select('cursos.nome_curso', 'cursos.descricao', 'cursos.data_inicio_curso', 'cursos.created_at', 'cursos.valor')
+            ->select('cursos.nome_curso', 'cursos.descricao', 'cursos.data_inicio_curso', 'cursos.created_at', 'cursos.valor', 'cursos.local', 'cursos.hora_inicio')
             ->get();
 
         // mostra apenas os cursos ainda não inscritos
@@ -177,7 +179,18 @@ class AreaAlunoController extends Controller
         $inscricao->curso_id = $request->get('curso');
         $inscricao->save();
 
-        $msg = 'Foi enviado um boleto para o e-mail: '.$inscricao->aluno->email.'. A inscrição será efetivada com o pagamento.';
+        
+        // gerar boleto pelo pagseguro
+        $boleto = new PagSeguro();
+        if($boleto->gerarBoleto($inscricao) == 'error'){
+
+            $msg = 'error';
+            
+        }else {
+
+            $msg = $boleto->gerarBoleto($inscricao);
+        }
+        
 
         return view('area-aluno.msg', ['inscricao' => $inscricao, 'titulo' => 'Inscrição', 'msg' => $msg, 'aluno' => $inscricao->aluno]);
 

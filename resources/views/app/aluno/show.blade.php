@@ -14,7 +14,9 @@
 
             <div class="menu">
                 <ul>
-                    <li><a href="{{ route('aluno.index') }}"><button type="button" class="btn btn-primary">Voltar</button></a></li>
+                    <li><a href="{{ route('aluno.index') }}"><button type="button" class="btn btn-secondary">Voltar</button></a></li>
+                    <li><a href="{{ route('aluno.edit', ['aluno' => $aluno->id ]) }}"><button type="button" class="btn btn-secondary">Editar</button></a></li>                       
+
                         
                     </ul>
             </div> 

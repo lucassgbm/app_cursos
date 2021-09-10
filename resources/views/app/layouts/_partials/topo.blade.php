@@ -35,7 +35,7 @@
             <a class="nav-link active" aria-current="page" href="{{ route('aluno.index') }}">Alunos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ route('inscricao.index') }}">Inscrição</a>
+            <a class="nav-link active" aria-current="page" href="{{ route('inscricao.index') }}">Inscrições</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ route('curso.index') }}">Cursos</a>

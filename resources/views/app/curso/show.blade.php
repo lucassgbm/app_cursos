@@ -14,9 +14,10 @@
 
             <div class="menu">
                 <ul>
-                    <li><a href="{{ route('curso.index') }}"><button type="button" class="btn btn-primary">Voltar</button></a></li>
+                    <li><a href="{{ route('curso.index') }}"><button type="button" class="btn btn-secondary">Voltar</button></a></li>
+                    <li><a href="{{ route('curso.edit', ['curso' => $curso->id ]) }}"><button type="button" class="btn btn-secondary">Editar</button></a></li>                       
                         
-                    </ul>
+                </ul>
             </div> 
                 <table class="table">
                     <tr>

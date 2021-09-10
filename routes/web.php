@@ -21,6 +21,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ConfiguracoesController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\AreaAlunoController;
+use App\Http\Controllers\PagseguroBoletoController;
 use App\Http\Controllers\TypeaheadController;
 
 

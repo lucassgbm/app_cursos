@@ -11,7 +11,7 @@
 <main>
 
   <section class="py-5 text-center container">
-    <span id="area_adm"><a href="{{ route('site.login') }}">Área administrativa</a></span>
+    {{-- <span id="area_adm"><a href="{{ route('site.login') }}">Área administrativa</a></span> --}}
     <main class="form-signin">
       <form method="post" action="{{ route('area-aluno.login') }}">
         @csrf
