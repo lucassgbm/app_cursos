@@ -78,8 +78,8 @@
                 <div class="menu">
                     <ul>
                     
-                        <li><a href="{{ route('inscricao.create') }}"><button type="button" class="btn btn-secondary">Exportar para CSV</button></a></li>
-                        <li><a href="{{ route('inscricao.create') }}"><button type="button" class="btn btn-secondary">Exportar para PDF</button></a></li>
+                        <li><a href="{{ route('inscricao.exportar', ['extensao' => 'xls']) }}"><button type="button" class="btn btn-secondary">Exportar para XLS</button></a></li>
+                        <li><a href="{{ route('inscricao.exportar', ['extensao' => 'pdf']) }}"><button type="button" class="btn btn-secondary">Exportar para PDF</button></a></li>
                         
                     </ul>
                 </div>

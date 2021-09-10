@@ -62,13 +62,19 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('app')->group(functio
     Route::get('/home', [HomeController::class, 'index'])->name('app.home');
     Route::get('/sair', [LoginController::class, 'sair'])->name('app.sair');
 
+    Route::get('inscricao/exportar/{extensao}', [InscricaoController::class, 'exportar'])->name('inscricao.exportar');
+
     // index store show edit update destroy
     Route::resource('inscricao', InscricaoController::class);
+
+
+
     Route::resource('curso', CursoController::class);
     Route::resource('configuracoes', ConfiguracoesController::class);
     Route::resource('aluno', AlunoController::class);
     
 });
+
 
 Route::fallback(function(){
     echo 'A rota acessada não existe. <a href="'.route('site.index').'">Clique aqui</a> para ir para a página principal';

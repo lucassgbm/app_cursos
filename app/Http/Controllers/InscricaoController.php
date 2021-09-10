@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InscricoesExport;
 use App\Models\Inscricao;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
@@ -9,6 +10,7 @@ use App\Models\Cursos;
 use App\Models\PagSeguro;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -175,5 +177,17 @@ class InscricaoController extends Controller
         $inscricao->delete();
 
         return redirect()->route('inscricao.index');
+    }
+
+    public function exportar($extensao){
+       
+        $nome_arquivo = 'inscritos';
+        if($extensao == 'xls'){
+            $nome_arquivo .= '.xls';
+        }elseif($extensao == 'pdf'){
+            $nome_arquivo .= '.pdf';
+        }
+
+        return Excel::download(new InscricoesExport, $nome_arquivo);
     }
 }
