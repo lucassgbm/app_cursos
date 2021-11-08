@@ -15,7 +15,11 @@ create database lb_cursos;
 
 obs: o modelo do banco está disponível na raiz do projeto com o nome: modelo_banco.mwb
 
-2 - dentro da pasta do projeto, executar o comando:
+2 - dentro da pasta do projeto, executar os comandos:
+
+composer install
+
+Criar link simbólico para o upload de arquivos: php artisan storage:link
 
 php artisan migrate
 
