@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 
-use App\Http\Controllers\PrincipalController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\FornecedorController;
@@ -42,7 +42,7 @@ use App\Http\Controllers\TesteController;
 |
 */
 
-Route::get('/', [PrincipalController::class, 'principal'])->name('site.index'); //->middleware('log.acesso');
+Route::get('/', [SiteController::class, 'index'])->name('site.index'); //->middleware('log.acesso');
 
 Route::post('/area-aluno/autenticar', [AreaAlunoController::class, 'autenticar'])->name('area-aluno.login');
 Route::get('/area-aluno/create', [AreaAlunoController::class, 'create'])->name('area-aluno.create');
