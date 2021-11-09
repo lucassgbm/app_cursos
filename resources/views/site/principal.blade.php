@@ -5,6 +5,7 @@
 @section('conteudo')
 <body>
 
+<div id="banner_site"></div>
 <div class="titulo-pagina">
         <h1>Área do aluno</h1>
     </div>

@@ -12,8 +12,6 @@
     <form action={{ route('site.login') }} method="post">
         @csrf
 
-        <h1 class="h3 mb-3 fw-normal">faça seu login</h1>
-
         <div class="form-floating">
 
         <input type="usuario" class="form-control" name="usuario" id="floatingInput" value="{{ old('usuario') }}" placeholder="email@email.com">

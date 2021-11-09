@@ -12,7 +12,7 @@
     <div class="py-5 text-center">
       <h4>Olá, {{ $aluno->nome_aluno }} | <a href="{{ route('area-aluno.logout') }}">sair</a></h4>
       <h2>Fazer inscrição</h2>
-      <p class="lead">Preenche os dados abaixo para fazer a sua inscrição</p>
+      <p class="lead">Preencha os dados abaixo para fazer a sua inscrição</p>
     </div>
 
     <div class="row g-5">
